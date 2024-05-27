@@ -4,12 +4,9 @@ from django.http import HttpRequest, HttpResponse
 from lists.views import home_page
 # Create your tests here.
 class HomePageTest(TestCase):
-    def test_home_page_is_about_todo(self):
-        request = HttpRequest()
-        response: HttpResponse = home_page(request)
+    def test_uses_home_template(self):
+        response = self.client.get('/')
+        self.assertTemplateUsed(response, 'home.html')
 
-        self.assertTrue(response.content.startswith(b'<html>'))
-        self.assertIn(b'<title>To-Do Lists</title>', response.content)
-        self.assertTrue(response.content.endswith(b'</html>'))
 
 

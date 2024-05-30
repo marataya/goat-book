@@ -27,12 +27,7 @@ class NewVisitorTest(LiveServerTestCase):
             except (AssertionError, WebDriverException) as e:
                 if time.time() - start_time > MAX_WAIT:
                     raise e
-
-    def check_for_row_in_list_table(self, row_text):
-        table = self.browser.find_element(By.ID, "id_list_table")
-        rows = table.find_elements(By.TAG_NAME, "tr")
-        self.assertIn(row_text, [row.text for row in rows])
-
+                time.sleep(0.5)
 
     def test_can_start_a_todo_list(self):
         self.browser.get(self.live_server_url)
@@ -70,6 +65,8 @@ class NewVisitorTest(LiveServerTestCase):
         inputbox.send_keys("Buy peacock feathers")
         inputbox.send_keys(Keys.ENTER)
         self.wait_for_row_in_list_table("1: Buy peacock feathers")
+
+        # She notices that her list has a unique URL
         edith_list_url = self.browser.current_url
         self.assertRegex(edith_list_url, "/lists/.+")
 

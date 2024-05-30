@@ -21,4 +21,5 @@ import lists.views
 
 urlpatterns = [
     path('', lists.views.home_page, name="home"),
+    path('lists/the-one-and-only-list/', lists.views.view_list, name="view_list"),
 ]
